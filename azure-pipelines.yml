@@ -22,6 +22,8 @@ jobs:
         curl -L $(source_url) -o $(source_directory).tar.bz2
     - bash: |
         tar -xjf $(source_directory).tar.bz2
+        ls
+        pwd
     - bash: |
         ./install-sources.sh --skip_steps=mingw32,manual
         ./build-prerequisites.sh --skip_steps=mingw32,manual
