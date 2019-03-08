@@ -15,7 +15,7 @@ jobs:
                              nsis openssh-client p7zip-full perl python-dev libisl-dev scons tcl tofrodos \
                              wget libncurses5-dev
     - bash: |
-        curl $(source_url) -o $(source_directory).tar.bz2
+        curl -L $(source_url) -o $(source_directory).tar.bz2
     - bash: |
         tar -xjf $(source_directory).tar.bz2
     - bash: |
