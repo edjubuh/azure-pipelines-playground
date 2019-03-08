@@ -25,7 +25,10 @@ jobs:
     - bash: |
         ./install-sources.sh --skip_steps=mingw32,manual
         ./build-prerequisites.sh --skip_steps=mingw32,manual
+      workingDirectory: $(source_directory)
     - bash: |
         sed -i '$(edit.build.newlib.line.number)s/.*/$(edit.build.newlib.line.replace)/' ./build-toolchain.sh
+      workingDirectory: $(source_directory)
     - bash: |
         ./build-toolchain.sh --skip_steps=mingw32,manual
+      workingDirectory: $(source_directory)
