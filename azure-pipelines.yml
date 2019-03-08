@@ -1,6 +1,6 @@
 variables:
   source_url: 'https://developer.arm.com/-/media/Files/downloads/gnu-rm/8-2018q4/gcc-arm-none-eabi-8-2018-q4-major-src.tar.bz2'
-  source_directory: gcc-arm-none-eabi-8-2018-q4-major-src
+  source_directory: 'gcc-arm-none-eabi-8-2018-q4-major-src'
 
 jobs:
 - job: BuildLibc
@@ -8,15 +8,15 @@ jobs:
     vmImage: 'ubuntu-16.04'
   steps:
     - bash: |
-      sudo apt install software-properties-common
-      sudo dpkg --add-architecture i386
-      sudo apt update
-      sudo apt install build-essential autconf autogen bison dejagnu flex flip gaw git gperf gzip nsis openssh-client p7zip-full perl python-dev libisl-dev scons tcl tofrodos wget libncurses5-dev
+        sudo apt install software-properties-common
+        sudo dpkg --add-architecture i386
+        sudo apt update
+        sudo apt install build-essential autconf autogen bison dejagnu flex flip gaw git gperf gzip nsis openssh-client p7zip-full perl python-dev libisl-dev scons tcl tofrodos wget libncurses5-dev
     - bash: |
-      curl $(source_url) -o $(source_directory).tar.bz2
+        curl $(source_url) -o $(source_directory).tar.bz2
     - bash: |
-      mkdir ~/toolchain
-      cp $(source_directory).tar.bz2 ~/toolchain
-      cd ~/toolchain
-      tar -xjf $(source_directory).tar.bz2
-      cd ./$(source_directory)
+        mkdir ~/toolchain
+        cp $(source_directory).tar.bz2 ~/toolchain
+        cd ~/toolchain
+        tar -xjf $(source_directory).tar.bz2
+        cd ./$(source_directory)
