@@ -17,8 +17,6 @@ jobs:
     - bash: |
         curl $(source_url) -o $(source_directory).tar.bz2
     - bash: |
-        mkdir ~/toolchain
-        cp $(source_directory).tar.bz2 ~/toolchain
-        cd ~/toolchain
         tar -xjf $(source_directory).tar.bz2
-        cd ./$(source_directory)
+    - bash: |
+        ./install_sources.sh --skip_steps=mingw32
