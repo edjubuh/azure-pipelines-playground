@@ -1,6 +1,6 @@
 variables:
   source_url: 'https://developer.arm.com/-/media/Files/downloads/gnu-rm/8-2018q4/gcc-arm-none-eabi-8-2018-q4-major-src.tar.bz2'
-  source_directory: 'gcc-arm-none-eabi-8-2018-q4-major-src'
+  source_directory: 'gcc-arm-none-eabi-8-2018-q4-major'
 
   edit.build.newlib.line.number: '294'
   edit.build.newlib.line.replace: 
@@ -17,13 +17,11 @@ jobs:
         sudo apt-get update
         sudo apt-get install build-essential autoconf autogen bison dejagnu flex flip gawk git gperf gzip \
                              nsis openssh-client p7zip-full perl python-dev libisl-dev scons tcl tofrodos \
-                             wget libncurses5-dev
+                             wget libncurses5-dev pv
     - bash: |
         curl -L $(source_url) -o $(source_directory).tar.bz2
     - bash: |
-        tar -xjf $(source_directory).tar.bz2
-        ls
-        pwd
+        pv $(source_directory).tar.bz2 | tar -xjf
     - bash: |
         ./install-sources.sh --skip_steps=mingw32,manual
         ./build-prerequisites.sh --skip_steps=mingw32,manual
