@@ -24,7 +24,7 @@ jobs:
         pv $(source_directory).tar.bz2 | tar -xjf -
       displayName: Download/extract arm-none-eabi-gcc source
     - bash: |
-        sed -i '95s/TERM|\\/TERM|agent.jobstatus\\/' ./build-common.sh
+        sed -i '95s/TERM|\\/TERM|agent.jobstatus|\\/' ./build-common.sh
       displayName: Edit ./build-common.sh
       workingDirectory: $(source_directory)
     - bash: |
