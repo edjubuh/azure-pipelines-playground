@@ -28,7 +28,7 @@ jobs:
       displayName: Edit ./build-common.sh
       workingDirectory: $(source_directory)
     - bash: |
-        sed -i '$(edit.build.newlib.line.number)s/.*/$(edit.build.newlib.line.replace)/' ./build-toolchain.sh
+        sed -i "$(edit.build.newlib.line.number)s/.*/$(edit.build.newlib.line.replace)/" ./build-toolchain.sh
       displayName: Edit ./build-toolchain.sh
       workingDirectory: $(source_directory)
     - bash: |
