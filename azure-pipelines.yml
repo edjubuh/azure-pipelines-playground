@@ -27,6 +27,7 @@ jobs:
       workingDirectory: $(source_directory)
     - bash: |
         sed -i "294s/.*/saveenvvar CFLAGS_FOR_TARGET '-g -O2 -ffunction-sections -fdata-sections -funwind-tables'/" ./build-toolchain.sh
+        head -n 316 ./build-toolchain.sh > ./build-toolchain.sh
       displayName: Edit ./build-toolchain.sh
       workingDirectory: $(source_directory)
     - bash: |
