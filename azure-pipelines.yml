@@ -36,6 +36,9 @@ jobs:
       workingDirectory: $(source_directory)
     - bash: |
         ./build-prerequisites.sh --skip_steps=mingw32
+      displayName: Build prerequisites
+      workingDirectory: $(source_directory)
+    - bash: |
         ./build-toolchain.sh --skip_steps=mingw32
       displayName: Build toolchain
       workingDirectory: $(source_directory)
