@@ -12,33 +12,31 @@ jobs:
     vmImage: 'ubuntu-16.04'
   steps:
     - bash: |
-        export
-    # - bash: |
-    #     sudo apt-get install software-properties-common
-    #     sudo dpkg --add-architecture i386
-    #     sudo apt-get update
-    #     sudo apt-get install build-essential autoconf autogen bison dejagnu flex flip gawk git gperf gzip \
-    #                          nsis openssh-client p7zip-full perl python-dev libisl-dev scons tcl tofrodos \
-    #                          wget libncurses5-dev pv
-    #   displayName: Install apt packages
-    # - bash: |
-    #     curl -L $(source_url) -o $(source_directory).tar.bz2
-    #     pv $(source_directory).tar.bz2 | tar -xjf -
-    #   displayName: Download/extract arm-none-eabi-gcc source
-    # - bash: |
-    #     sed -i '102s/.*/unset "$var"/' ./build-common.sh
-    #   displayName: Edit ./build-common.sh
-    #   workingDirectory: $(source_directory)
-    # - bash: |
-    #     sed -i "$(edit.build.newlib.line.number)s/.*/$(edit.build.newlib.line.replace)/" ./build-toolchain.sh
-    #   displayName: Edit ./build-toolchain.sh
-    #   workingDirectory: $(source_directory)
-    # - bash: |
-    #     ./install-sources.sh --skip_steps=mingw32,manual
-    #     ./build-prerequisites.sh --skip_steps=mingw32,manual
-    #   displayName: Build pre-requisites
-    #   workingDirectory: $(source_directory)
-    # - bash: |
-    #     ./build-toolchain.sh --skip_steps=mingw32,manual
-    #   displayName: Build toolchain
-    #   workingDirectory: $(source_directory)
+        sudo apt-get install software-properties-common
+        sudo dpkg --add-architecture i386
+        sudo apt-get update
+        sudo apt-get install build-essential autoconf autogen bison dejagnu flex flip gawk git gperf gzip \
+                             nsis openssh-client p7zip-full perl python-dev libisl-dev scons tcl tofrodos \
+                             wget libncurses5-dev pv
+      displayName: Install apt packages
+    - bash: |
+        curl -L $(source_url) -o $(source_directory).tar.bz2
+        pv $(source_directory).tar.bz2 | tar -xjf -
+      displayName: Download/extract arm-none-eabi-gcc source
+    - bash: |
+        sed -i '95s/TERM|\\/TERM|agent.jobstatus\\/' ./build-common.sh
+      displayName: Edit ./build-common.sh
+      workingDirectory: $(source_directory)
+    - bash: |
+        sed -i "$(edit.build.newlib.line.number)s/.*/$(edit.build.newlib.line.replace)/" ./build-toolchain.sh
+      displayName: Edit ./build-toolchain.sh
+      workingDirectory: $(source_directory)
+    - bash: |
+        ./install-sources.sh --skip_steps=mingw32,manual
+        ./build-prerequisites.sh --skip_steps=mingw32,manual
+      displayName: Build pre-requisites
+      workingDirectory: $(source_directory)
+    - bash: |
+        ./build-toolchain.sh --skip_steps=mingw32,manual
+      displayName: Build toolchain
+      workingDirectory: $(source_directory)
