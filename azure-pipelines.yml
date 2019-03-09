@@ -23,6 +23,8 @@ jobs:
     - bash: |
         pv $(source_directory).tar.bz2 | tar -xjf -
     - bash: |
+        sed -i '102s/.*/unset "$var"'
+    - bash: |
         ./install-sources.sh --skip_steps=mingw32,manual
         ./build-prerequisites.sh --skip_steps=mingw32,manual
       workingDirectory: $(source_directory)
