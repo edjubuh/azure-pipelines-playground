@@ -2,14 +2,11 @@ variables:
   source_url: 'https://developer.arm.com/-/media/Files/downloads/gnu-rm/8-2018q4/gcc-arm-none-eabi-8-2018-q4-major-src.tar.bz2'
   source_directory: 'gcc-arm-none-eabi-8-2018-q4-major'
 
-  edit.build.newlib.line.number: '294'
-  edit.build.newlib.line.replace: 
-      saveenvvar CFLAGS_FOR_TARGET '-g -O2 -ffunction-sections -fdata-sections -funwind-tables'
-
 jobs:
 - job: BuildLibc
   pool:
     vmImage: 'ubuntu-16.04'
+  timeoutInMinutes: 0
   steps:
     - bash: |
         sudo apt-get install software-properties-common
@@ -29,7 +26,7 @@ jobs:
       displayName: Edit ./build-common.sh
       workingDirectory: $(source_directory)
     - bash: |
-        sed -i "$(edit.build.newlib.line.number)s/.*/$(edit.build.newlib.line.replace)/" ./build-toolchain.sh
+        sed -i "294s/.*/saveenvvar CFLAGS_FOR_TARGET '-g -O2 -ffunction-sections -fdata-sections -funwind-tables'/" ./build-toolchain.sh
       displayName: Edit ./build-toolchain.sh
       workingDirectory: $(source_directory)
     - bash: |
