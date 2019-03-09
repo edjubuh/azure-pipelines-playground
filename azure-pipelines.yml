@@ -35,8 +35,8 @@ jobs:
     - bash: |
         ./install-sources.sh --skip_steps=mingw32
       displayName: Install sources
-      workingDirectory: $(source_directory)
     - bash: |
-        $(source_directory)/build-prerequisites.sh --skip_steps=mingw32
-        $(source_directory)/build-toolchain.sh --skip_steps=mingw32
+        ./build-prerequisites.sh --skip_steps=mingw32
+        ./build-toolchain.sh --skip_steps=mingw32
       displayName: Build toolchain
+      workingDirectory: $(source_directory)
