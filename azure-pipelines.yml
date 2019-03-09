@@ -17,11 +17,11 @@ jobs:
         sudo apt-get update
         sudo apt-get install build-essential autoconf autogen bison dejagnu flex flip gawk git gperf gzip \
                              nsis openssh-client p7zip-full perl python-dev libisl-dev scons tcl tofrodos \
-                             wget libncurses5-dev pv
+                             wget libncurses5-dev pv texlive texlive-extra-utils texinfo
       displayName: Install apt packages
     - bash: |
         curl -L $(source_url) -o $(source_directory).tar.bz2
-        pv $(source_directory).tar.bz2 | tar -xjf -
+        pv -f $(source_directory).tar.bz2 | tar -xjf -
       displayName: Download/extract arm-none-eabi-gcc source
     - bash: |
         sed -i '95s/TERM|\\/TERM|agent.jobstatus|\\/' ./build-common.sh
@@ -32,11 +32,11 @@ jobs:
       displayName: Edit ./build-toolchain.sh
       workingDirectory: $(source_directory)
     - bash: |
-        ./install-sources.sh --skip_steps=mingw32,manual
-        ./build-prerequisites.sh --skip_steps=mingw32,manual
+        ./install-sources.sh --skip_steps=mingw32
+        ./build-prerequisites.sh --skip_steps=mingw32
       displayName: Build pre-requisites
       workingDirectory: $(source_directory)
     - bash: |
-        ./build-toolchain.sh --skip_steps=mingw32,manual
+        ./build-toolchain.sh --skip_steps=mingw32
       displayName: Build toolchain
       workingDirectory: $(source_directory)
