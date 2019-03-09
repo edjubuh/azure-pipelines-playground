@@ -25,6 +25,7 @@ jobs:
       displayName: Download/extract arm-none-eabi-gcc source
     - bash: |
         sed -i '95s/TERM|\\/TERM|agent.jobstatus|\\/' ./build-common.sh
+        sed -i '302s/http:\/\/www.mr511.de\/software\//https:\/\/github.com\/gnu-mcu-eclipse\/files\/raw\/master\/libs\//' ./build-common.sh
       displayName: Edit ./build-common.sh
       workingDirectory: $(source_directory)
     - bash: |
