@@ -11,10 +11,12 @@ jobs:
     - bash: |
         sudo apt-get install software-properties-common
         sudo dpkg --add-architecture i386
+        sudo add-apt-repository ppa:team-gcc-arm-embedded/ppa
         sudo apt-get update
         sudo apt-get install build-essential autoconf autogen bison dejagnu flex flip gawk git gperf gzip \
                              nsis openssh-client p7zip-full perl python-dev libisl-dev scons tcl tofrodos \
                              wget libncurses5-dev pv texlive texlive-extra-utils texinfo
+        sudo apt-get install gcc-arm-embedded
       displayName: Install apt packages
     - bash: |
         curl -L $(source_url) -o $(source_directory).tar.bz2
@@ -39,6 +41,17 @@ jobs:
       displayName: Build prerequisites
       workingDirectory: $(source_directory)
     - bash: |
-        ./build-toolchain.sh --skip_steps=mingw32
+        saveenvvar CFLAGS_FOR_TARGET '-g -O2 -ffunction-sections -fdata-sections -funwind-tables'
+        ./src/newlib/configure            \
+          --build="`uname -m | sed 'y/XI/xi/'`"-linux-gnu --host="`uname -m | sed 'y/XI/xi/'`"-linux-gnu
+          --target=arm-none-eabi
+          --prefix=./newlib
+          --enable-newlib-io-long-long
+          --enable-newlib-io-c99-formats
+          --enable-newlib-register-fini
+          --enable-newlib-retargetable-locking
+          --disable-newlib-supplied-syscalls
+          --disable-nls
+
       displayName: Build toolchain
       workingDirectory: $(source_directory)
