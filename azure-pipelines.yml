@@ -58,5 +58,7 @@ jobs:
 
         make -j`grep ^processor /proc/cpuinfo|wc -l`
 
+        ls $(ROOT)/newlib
+
       displayName: Build toolchain
       workingDirectory: $(source_directory)
