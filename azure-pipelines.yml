@@ -45,16 +45,16 @@ jobs:
         export ROOT=`pwd`
         mkdir -p $ROOT/build-native/newlib
         pushd $ROOT/build-native/newlib
-        $ROOT/src/newlib/configure            \
-          --build="`uname -m | sed 'y/XI/xi/'`"-linux-gnu --host="`uname -m | sed 'y/XI/xi/'`"-linux-gnu
-          --target=arm-none-eabi
-          --prefix=$(ROOT)/newlib
-          --enable-newlib-io-long-long
-          --enable-newlib-io-c99-formats
-          --enable-newlib-register-fini
-          --enable-newlib-retargetable-locking
-          --disable-newlib-supplied-syscalls
-          --disable-nls
+        $ROOT/src/newlib/configure                                                                          \
+          --build="`uname -m | sed 'y/XI/xi/'`"-linux-gnu --host="`uname -m | sed 'y/XI/xi/'`"-linux-gnu    \
+          --target=arm-none-eabi                                                                            \
+          --prefix=$(ROOT)/newlib                                                                           \
+          --enable-newlib-io-long-long                                                                      \
+          --enable-newlib-io-c99-formats                                                                    \
+          --enable-newlib-register-fini                                                                     \
+          --enable-newlib-retargetable-locking                                                              \
+          --disable-newlib-supplied-syscalls                                                                \
+          --disable-nls                                                                                     \
 
         make -j`grep ^processor /proc/cpuinfo|wc -l`
 
