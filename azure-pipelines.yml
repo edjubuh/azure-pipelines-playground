@@ -42,10 +42,13 @@ jobs:
       workingDirectory: $(source_directory)
     - bash: |
         export CFLAGS_FOR_TARGET='-g -O2 -ffunction-sections -fdata-sections -funwind-tables'
-        ./src/newlib/configure            \
+        ROOT=`pwd`
+        mkdir -p $(ROOT)/build-native/newlib
+        pushd $(ROOT)/build-native/newlib
+        $(ROOT)/src/newlib/configure            \
           --build="`uname -m | sed 'y/XI/xi/'`"-linux-gnu --host="`uname -m | sed 'y/XI/xi/'`"-linux-gnu
           --target=arm-none-eabi
-          --prefix=./newlib
+          --prefix=$(ROOT)/newlib
           --enable-newlib-io-long-long
           --enable-newlib-io-c99-formats
           --enable-newlib-register-fini
