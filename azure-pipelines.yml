@@ -57,9 +57,12 @@ jobs:
           --disable-nls                                                                                     \
 
         make -j`grep ^processor /proc/cpuinfo|wc -l`
+        make install
 
         ls -R $ROOT/newlib
         ls -R $ROOT/build-native/newlib
+
+        cp $ROOT/build-native/newlib/arm-none-eabi/thumb/v7-ar/fpv3/softfp/newlib/libc/libc.a .
 
       displayName: Build toolchain
       workingDirectory: $(source_directory)
