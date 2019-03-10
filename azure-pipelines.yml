@@ -41,7 +41,7 @@ jobs:
       displayName: Build prerequisites
       workingDirectory: $(source_directory)
     - bash: |
-        saveenvvar CFLAGS_FOR_TARGET '-g -O2 -ffunction-sections -fdata-sections -funwind-tables'
+        export CFLAGS_FOR_TARGET='-g -O2 -ffunction-sections -fdata-sections -funwind-tables'
         ./src/newlib/configure            \
           --build="`uname -m | sed 'y/XI/xi/'`"-linux-gnu --host="`uname -m | sed 'y/XI/xi/'`"-linux-gnu
           --target=arm-none-eabi
@@ -52,6 +52,8 @@ jobs:
           --enable-newlib-retargetable-locking
           --disable-newlib-supplied-syscalls
           --disable-nls
+
+        make -j`grep ^processor /proc/cpuinfo|wc -l`
 
       displayName: Build toolchain
       workingDirectory: $(source_directory)
