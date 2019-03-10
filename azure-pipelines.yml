@@ -62,7 +62,16 @@ jobs:
         ls -R $ROOT/newlib
         ls -R $ROOT/build-native/newlib
 
-        cp $ROOT/build-native/newlib/arm-none-eabi/thumb/v7-ar/fpv3/softfp/newlib/libc/libc.a .
+        cp $ROOT/newlib/arm-none-eabi/lib/thumb/v7-ar/libc.a $(Build.ArtifactStagingDirectory)
+        cp $ROOT/newlib/arm-none-eabi/lib/thumb/v7-ar/libm.a $(Build.ArtifactStagingDirectory)
 
+        TARGET_LIBRARIES=`find $(Build.ArtifactStagingDirectory) -name \*.a`
+        for target_lib in $TARGET_LIBRARIES ; do
+          arm-none-eabi-objcopy -R .comment -R .note -R .debug_info -R .debug_aranges -R .debug_pubnames -R .debug_pubtypes -R .debug_abbrev -R .debug_line -R .debug_str -R .debug_ranges -R .debug_loc $target_lib || true
+        done
       displayName: Build toolchain
       workingDirectory: $(source_directory)
+    - task: PublishPipelineArtifact@0
+      inputs:
+        artifactName: 'newlib'
+        targetPath: $(Build.ArtifactStagingDirectory))
